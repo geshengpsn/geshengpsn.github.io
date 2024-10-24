@@ -1,10 +1,5 @@
 # 项目经历
 
-<<<<<<< HEAD
-## 
-<video src="dc.mp4" controls="controls" width="640" height="360">
-</video>
-=======
 ## 协作机器人交互平台
 <div style="flex">
 <video src="b/pick.mp4" controls="controls" width="640" height="360"></video>
@@ -14,17 +9,10 @@
 <video src="b/sort.mp4" controls="controls" width="640" height="360"></video>
 </div>
 
->>>>>>> dd85716 (b)
 
 ## Rust 机器人动力学运动学库
 <video src="rust_ik.mov" controls="controls" width="640" height="360"></video>
 
-<<<<<<< HEAD
-## s
-## s
-## s
-## s
-=======
 ## ArUco 二维码识别库
 ![](img.png)
 ![](img_bin.png)
@@ -55,4 +43,3 @@
 ## UEI - rerun (online, offline)
 ## UEI - learning
 ## UEI - pymagiclaw
->>>>>>> dd85716 (b)
