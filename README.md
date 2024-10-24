@@ -1,7 +1,7 @@
 # 项目经历
 
 ## 协作机器人交互平台
-<div style="flex">
+<div style="display: flex;">
 <video src="b/pick.mp4" controls="controls" width="640" height="360"></video>
 <video src="b/ttt.mp4" controls="controls" width="640" height="360"></video>
 <video src="b/cali.mp4" controls="controls" width="640" height="360"></video>
@@ -26,7 +26,13 @@
 ![](docker.png)
 
 ## nurbs
-![](nurbs/bezier.svg)
+<div style="display: flex;">
+<img src="nurbs/bezier.svg">
+<img src="nurbs/nurbs.svg">
+<img src="nurbs/bspline.svg">
+</div>
+
+
 
 ## liealg
 
