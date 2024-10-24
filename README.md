@@ -14,19 +14,19 @@
 <video src="rust_ik.mov" controls="controls" width="640" height="360"></video>
 
 ## ArUco 二维码识别库
-![](img.png)
-![](img_bin.png)
-![](img_contours.png)
-![](img_polygon.png)
+![](aruco/img.png)
+![](aruco/img_bin.png)
+![](aruco/img_contours.png)
+![](aruco/img_polygon.png)
 
 ## Mesh 几何库
-![](bunny.png)
+![](mesh/bunny.png)
 
 ## DrakeNotebook docker 教学开发环境
-![](drake.png)
+![](docker.png)
 
 ## nurbs
-![](bezier.svg)
+![](nurbs/bezier.svg)
 
 ## liealg
 
