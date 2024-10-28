@@ -2,11 +2,11 @@
 
 ## 协作机器人交互平台
 <div style="display: flex;">
-<video src="b/pick.mp4" controls="controls" width="180" height="320"></video>
-<video src="b/ttt.mp4" controls="controls" width="180" height="320"></video>
-<video src="b/cali.mp4" controls="controls" width="180" height="320"></video>
-<video src="b/grasp.mp4" controls="controls" width="180" height="320"></video>
-<video src="b/sort.mp4" controls="controls" width="180" height="320"></video>
+<video autoplay style="margin: 10px" src="b/pick.mp4" controls="controls" width="180" height="320"></video>
+<video autoplay style="margin: 10px" src="b/ttt.mp4" controls="controls" width="180" height="320"></video>
+<video autoplay style="margin: 10px" src="b/cali.mp4" controls="controls" width="180" height="320"></video>
+<video autoplay style="margin: 10px" src="b/grasp.mp4" controls="controls" width="180" height="320"></video>
+<video autoplay style="margin: 10px" src="b/sort.mp4" controls="controls" width="180" height="320"></video>
 </div>
 
 
