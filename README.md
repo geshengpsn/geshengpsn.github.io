@@ -87,37 +87,68 @@ github: [https://github.com/geshengpsn/aruco-rs](https://github.com/geshengpsn/a
 
 项目旨在为具身智能的多模态数据采集与摇操提供一个通用的工具链、可扩展的开源数据与模型。具体来说就是首先使用手持硬件夹爪进行机器人操作数据采集与机器人摇操；采集的数据再进行可视化、编辑、标注、上传；使用共建的大数据集，通过模仿学习等方法，可以训练出性能更好的具身智能模型。
 
-<video autoplay style="margin: 10px" src="uei/data.mp4" controls="controls" width="640" height="360" ></video>
+<video autoplay style="margin: 10px" src="uei/data.mp4" controls="controls" width="960" height="540" ></video>
 
-为了高效的收集机器人操作数据，我们设计实现了一种专用于收集数据的手持夹爪硬件。
-
-通过使用使用手持夹爪硬件进行数据收集时共收集5种多模态数据，其分别为空间位姿、RGB图像、深度、夹爪开合角度、柔性手指触觉共5种模态。
+为了高效的收集机器人操作数据，我们设计实现了一种专用于收集数据的手持夹爪硬件。通过使用使用手持夹爪硬件进行数据收集时共收集5种多模态数据，其分别为空间位姿、RGB图像、深度、夹爪开合角度、柔性手指触觉共5种模态。
 
 ### UEI - 基于视觉的柔性手指触觉
 
+将相机模块安装在柔性手指内部，通过视觉识别柔性手指内部的ArUco码的6D位姿，获取柔性手指的形变信息。使用机器学习模型来讲形变信息映射到柔性手指的触觉信息。
+
+柔性手指使用一个USB相机模块作为视觉传感器，使用树莓派5作为上位机来进行ArUco码识别与机器模型推理。相机使用v4l2接口获取相机图像，使用opencv库进行ArUco码识别，使用[Burn](https://burn.dev/)在树莓派5的CPU上进行机器学习模型推理。最后将推理结果通过WebSocket发送给其他机器。
+
+## UEI - pymagiclaw 通用机器人操作控制库
+![](pymagiclaw/pic.png)
+
+```python
+from time import sleep
+from pymagiclaw import franka 
+import numpy as np
+
+# 输入ip，系统是否有实时内核
+robot = franka.Franka("192.168.1.100", False)
+
+# tranlation stiffness, rotation stiffness
+robot.start_control(300, 30)
+
+m = np.identity(4)
+# m[2, 3] = 0.1;
+sleep(1)
+state = robot.read_state()
+print(state)
+# sleep(5)
+
+robot.move_absolute_cartesian(
+    np.array(
+        [[ 0.92342271, -0.35936834,  0.13470301,  0.48263934],
+         [-0.36170872, -0.93226071, -0.00753466, -0.03020527],
+        [ 0.12828604, -0.04176558, -0.99085737,  0.22651136],
+        [ 0.,          0.,          0.,          1.        ]]
+    )
+);
+sleep(5)
+robot.stop()
+```
+github: [https://github.com/geshengpsn/pymagiclaw](https://github.com/geshengpsn/pymagiclaw)
+
+开发并上传了一个通用的机器人操作控制库，本库使用python作为接口语言，内部使用rust语言实现。本库计划支持多种机器人的统一API操作，现阶段只支持了Franka机器人。使用此库可以控制机器人末端的绝对位姿与相对步进位姿，同时可以获取机器人的状态信息。内部实现了机器人的阻抗控制。
+
 ### UEI - 机器人摇操
 
-### UEI - 数据可视化
+<video autoplay style="margin: 10px" src="uei/teleop.mp4.mp4" controls="controls" width="960" height="540" ></video>
 
-<video src="dc.mp4" controls="controls" width="640" height="360">
+使用硬件夹爪实现了，franka 机器人的摇操功能，可以通过手持硬件夹爪来控制机器人的末端位姿与夹爪开合。使用了pymagiclaw库来实现机器人的控制。
+
+## UEI - URDF 机器人模型文件解析库
+
+![](uei/urdf.png)
+
+使用Rust语言实现了URDF文件的解析，主要将URDF文件中的离散的link与joint转变为图数据结构，方便后续的机器人运动学、动力学计算。
+
+
+## UEI - 基于rerun的多模态数据可视化（在线与离线）
+
+<video autoplay src="visual.mov" controls="controls" width="960" height="540">
 </video>
 
-#### pymagiclaw 通用机器人操作控制库
-![](pymagiclaw/pic.png)
-background
-method
-result
-
-### 数据可视化
-![]
-
-## urdf-parse  URDF 机器人模型文件解析库
-background
-method
-result
-
-
-## UEI - rerun (online, offline) 基于rerun的多模态数据可视化（在线与离线）
-background
-method
-result
+基于rerun工具的数据可视化，使用rust语言编写，使用了URDF文件解析库。可以实时或离线查看多模态数据，包括RGB图像、深度图像、点云、夹爪开合角度、柔性手指触觉等数据。
