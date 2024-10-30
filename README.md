@@ -20,7 +20,47 @@ github: [https://github.com/geshengpsn/mesh](https://github.com/geshengpsn/mesh)
 
 使用纯Rust实现了3d mesh的计算几何库，包括了顶点、边、面、体积、表面积、法向量、曲率、拓扑、几何变换、布尔操作、几何查询加速数据结构、CSG、文件读写等功能。本项目使用了Rust的泛型、trait等特性，实现了一个高效、安全、易用的3d mesh库。
 
-## 李群李代数计算库 - liealg
+## NURBS 曲线曲面库
+<img src="nurbs/all.png">
+
+```rust
+fn main() {
+    let curve = BezierCurve::new(vec![
+        Vector2::new(0.0, 500.0),
+        Vector2::new(0.0, 0.0),
+        Vector2::new(500.0, 0.0),
+        Vector2::new(500.0, 500.0),
+    ]);
+    to_svg("bezier", &curve);
+
+    let curve = BsplineCurve::new_uniform(
+        vec![
+            Vector2::new(0.0, 100.0),
+            Vector2::new(0.0, 0.0),
+            Vector2::new(500.0, 0.0),
+            Vector2::new(500.0, 500.0),
+        ],
+        2,
+    );
+    to_bspline_svg("bspline", &curve);
+
+    let curve = NurbsCurve::new(
+        vec![
+            (Vector2::new(500.0, 0.0), 1.0),
+            (Vector2::new(0.0, 0.0), 1.0),
+            (Vector2::new(0.0, 500.0), 2.0),
+        ],
+        vec![0.0, 0.0, 0.0, 1.0, 1.0, 1.0],
+        2,
+    );
+    to_nurbs_svg("nurbs", &curve);
+}
+```
+github: [https://github.com/geshengpsn?tab=repositories](https://github.com/geshengpsn?tab=repositories)
+
+使用Rust实现了参数曲线曲面库，包括了贝塞尔曲线曲面、B样条曲线曲面、NURBS曲线曲面等功能。本项目为各个参数曲线曲面实现了基于trait与范型的曲线曲面接口，使得用户可以使用不同的维度与不同的数学backend来实现曲线曲面的计算。
+
+## 李群李代数计算开源库 - liealg
 <img src="liealg/pic.png">
 
 github: [https://github.com/geshengpsn/liealg](https://github.com/geshengpsn/liealg)
@@ -39,34 +79,26 @@ online demo: [https://github.com/geshengpsn/online-robot-sim](https://github.com
 ## Rust ArUco 二维码识别库
 <img src="aruco/all.png">
 
+github: [https://github.com/geshengpsn/aruco-rs](https://github.com/geshengpsn/aruco-rs)
 
-## DrakeNotebook docker 教学开发环境
-![](docker.png)
-
-
-## NURBS 曲线曲面库
-<img src="nurbs/all.png">
-
-
-
-
+在大多数机器人项目中，我们经常只使用OpenCV中ArUco码识别功能。但是苦于OpenCV过于臃肿导致的编译缓慢，本项目尝试使用纯Rust实现了一个独立的ArUco码识别库。该库实现了ArUco码的检测、id识别等功能，对于一张720p图片可以做到10ms以内的识别速度，并且编译速度大幅提升，内存占用、cpu占用率大幅降低。使之可以在其他Rust机器人视觉项目中脱离OpenCV，方便的使用ArUco码识别。
 
 ## Universl Ebodiment Interface 通用具身接口
 
-
-### 背景
 项目旨在为具身智能的多模态数据采集与摇操提供一个通用的工具链、可扩展的开源数据与模型。具体来说就是首先使用手持硬件夹爪进行机器人操作数据采集与机器人摇操；采集的数据再进行可视化、编辑、标注、上传；使用共建的大数据集，通过模仿学习等方法，可以训练出性能更好的具身智能模型。
 
-### 手持夹爪硬件
-使用手持夹爪硬件进行数据收集时共收集5种多模态数据，其分别为空间位姿、RGB图像、深度、夹爪开合角度、柔性手指触觉共5种模态。
+<video autoplay style="margin: 10px" src="uei/data.mp4" controls="controls" width="640" height="360" ></video>
 
-#### UEI - vision based finger tactile 基于视觉的柔性手指触觉 
-#### ati 硬件驱动
+为了高效的收集机器人操作数据，我们设计实现了一种专用于收集数据的手持夹爪硬件。
 
-### 机器人摇操
+通过使用使用手持夹爪硬件进行数据收集时共收集5种多模态数据，其分别为空间位姿、RGB图像、深度、夹爪开合角度、柔性手指触觉共5种模态。
 
-#### motor
-#### teleoperation
+### UEI - 基于视觉的柔性手指触觉
+
+### UEI - 机器人摇操
+
+### UEI - 数据可视化
+
 <video src="dc.mp4" controls="controls" width="640" height="360">
 </video>
 
