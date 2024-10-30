@@ -135,7 +135,7 @@ github: [https://github.com/geshengpsn/pymagiclaw](https://github.com/geshengpsn
 
 ### UEI - 机器人摇操
 
-<video autoplay style="margin: 10px" src="uei/teleop.mp4.mp4" controls="controls" width="960" height="540" ></video>
+<video autoplay style="margin: 10px" src="uei/teleop.mp4" controls="controls" width="960" height="540" ></video>
 
 使用硬件夹爪实现了，franka 机器人的摇操功能，可以通过手持硬件夹爪来控制机器人的末端位姿与夹爪开合。使用了pymagiclaw库来实现机器人的控制。
 
