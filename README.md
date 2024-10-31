@@ -93,6 +93,8 @@ github: [https://github.com/geshengpsn/aruco-rs](https://github.com/geshengpsn/a
 
 ### UEI - 基于视觉的柔性手指触觉
 
+![](uei/finger-all.png)
+
 将相机模块安装在柔性手指内部，通过视觉识别柔性手指内部的ArUco码的6D位姿，获取柔性手指的形变信息。使用机器学习模型来讲形变信息映射到柔性手指的触觉信息。
 
 柔性手指使用一个USB相机模块作为视觉传感器，使用树莓派5作为上位机来进行ArUco码识别与机器模型推理。相机使用v4l2接口获取相机图像，使用opencv库进行ArUco码识别，使用[Burn](https://burn.dev/)在树莓派5的CPU上进行机器学习模型推理。最后将推理结果通过WebSocket发送给其他机器。
