@@ -11,7 +11,7 @@
 
 本项目使用Franka协作机器人、桌面投影、Realsense相机与ArUco识别块，实现了多种交互任务，包括拾取、井字棋、视觉校准、深度学习抓取、垃圾分拣等交互任务。
 
-本项目使用python作为主语言实现了交互逻辑，使用c++编写了Franka机器人控制驱动程序，两者通过网络通讯进行控制，在井字棋交互任务中，使用minimax算法构建了一个简单的AI玩家与人类对弈。在深度学习抓取任务中，使用了抓取位置预测算法，实现了机器人的自动抓取。使用了OpenCV库实现了桌面投影，以及对ArUco的识别。
+本项目使用python作为主语言实现了交互逻辑，使用c++编写了Franka机器人控制驱动程序，两者通过TCP网络通讯进行控制。在井字棋交互任务中，使用minimax算法构建了一个AI玩家与人类对弈。在深度学习抓取任务中，使用了抓取位置预测算法，实现了机器人的自动抓取。使用了OpenCV库实现了桌面投影，以及对ArUco的识别。
 
 ## Rust 3d Mesh 计算几何库
 ![](mesh/bunny.png)
@@ -65,7 +65,7 @@ github: [https://github.com/geshengpsn?tab=repositories](https://github.com/gesh
 
 github: [https://github.com/geshengpsn/liealg](https://github.com/geshengpsn/liealg)
 
-为机器人运动动力学库而专门实现的SO3与SE3群的李群李代数计算库。包含了李群李代数的基本运算，有李代数指数映射、对数映射、李群伴随矩阵等算子。算子程经过测试与优化，证明了其正确性与高效性。程序主要使用Rust trait与范型特性实现了计算过程，使得代码具有高度的可复用性与可扩展性。
+为机器人运动动力学库而专门实现的SO3与SE3群的李群李代数计算库。包含了李群李代数的基本算子，有李代数指数映射、对数映射、李群伴随矩阵等算子。算法程序经过充分测试与优化，证明了其正确性与高效性。程序主要使用Rust trait与范型特性实现了计算过程，使得代码具有高度的可复用性与可扩展性。
 
 ## Rust 机器人动力学运动学库
 <video src="rust_ik.mov" controls="controls" width="980" height="735"></video>
@@ -74,7 +74,7 @@ github: [https://github.com/geshengpsn/kidy](https://github.com/geshengpsn/kidy)
 
 online demo: [https://github.com/geshengpsn/online-robot-sim](https://github.com/geshengpsn/online-robot-sim)
 
-实现了基于李群李代数系统的机器人动力学运动学库，包括了机器人的正逆运动学、雅可比矩阵、正逆动力学等功能。除此之外，还实现了网页端实时逆运动学交互界面，可以实时调整机器人的末端姿态，查看机器人的关节角度。
+实现了基于李群李代数系统的机器人动力学运动学库，包括了机器人的正逆运动学、雅可比矩阵、正逆动力学等功能。除此之外，还实现了网页端实时逆运动学交互界面，可以实时调整机器人的末端姿态，并查看机器人的关节角度。
 
 ## Rust ArUco 二维码识别库
 <img src="aruco/all.png">
@@ -85,22 +85,26 @@ github: [https://github.com/geshengpsn/aruco-rs](https://github.com/geshengpsn/a
 
 ## Universl Ebodiment Interface 通用具身接口
 
-项目旨在为具身智能的多模态数据采集与摇操提供一个通用的工具链、可扩展的开源数据与模型。具体来说就是首先使用手持硬件夹爪进行机器人操作数据采集与机器人摇操；采集的数据再进行可视化、编辑、标注、上传；使用共建的大数据集，通过模仿学习等方法，可以训练出性能更好的具身智能模型。
+项目旨在为具身智能的多模态数据采集与摇操提供一个通用的工具链、可扩展的开源数据与模型。具体来说就是首先使用手持硬件夹爪进行机器人操作数据采集与机器人摇操；采集的数据再进行可视化、编辑、标注、上传；使用共建的大数据集，通过模仿学习等方法，可以训练出性能更好的具身智能模型。通过使用本项目开发的机器人夹爪，可以直接将模型迁移到其他机器人上，实现跨具身智能平台的模型迁移。
 
 <video autoplay style="margin: 10px" src="uei/data.mp4" controls="controls" width="960" height="540" ></video>
 
-为了高效的收集机器人操作数据，我们设计实现了一种专用于收集数据的手持夹爪硬件。通过使用使用手持夹爪硬件进行数据收集时共收集5种多模态数据，其分别为空间位姿、RGB图像、深度、夹爪开合角度、柔性手指触觉共5种模态。
+为了高效的收集机器人操作数据，我们设计实现了一种专用于收集数据的手持夹爪硬件，该硬件包含一个iphone手机、一个3D打印的夹爪以及一对柔性手指。通过使用使用手持夹爪硬件进行数据收集时共收集5种多模态数据，其分别为夹爪空间位姿、RGB图像、深度图像、夹爪开合角度、柔性手指触觉共5种模态。
 
 ### UEI - 基于视觉的柔性手指触觉
 
 ![](uei/finger-all.png)
 
-将相机模块安装在柔性手指内部，通过视觉识别柔性手指内部的ArUco码的6D位姿，获取柔性手指的形变信息。使用机器学习模型来讲形变信息映射到柔性手指的触觉信息。
+将相机模块安装在柔性手指内部，通过视觉识别柔性手指内部的ArUco码的6D位姿，获取柔性手指的部分形变信息。然后使用机器学习模型来将6D位姿信息映射为柔性手指的触觉信息。
 
-柔性手指使用一个USB相机模块作为视觉传感器，使用树莓派5作为上位机来进行ArUco码识别与机器模型推理。相机使用v4l2接口获取相机图像，使用opencv库进行ArUco码识别，使用[Burn](https://burn.dev/)在树莓派5的CPU上进行机器学习模型推理。最后将推理结果通过WebSocket发送给其他机器。
+柔性手指使用一个USB相机模块作为视觉传感器，使用树莓派5作为上位机来进行ArUco码识别与机器模型推理。相机使用v4l2接口获取相机图像，使用OpenCV库进行ArUco码识别，使用[Burn](https://burn.dev/)在树莓派5的CPU上进行机器学习模型推理。最后将推理结果通过WebSocket向外界发送。
 
 ## UEI - pymagiclaw 通用机器人操作控制库
 ![](pymagiclaw/pic.png)
+
+github: [https://github.com/geshengpsn/pymagiclaw](https://github.com/geshengpsn/pymagiclaw)
+
+开发并上传了一个通用的机器人操作控制库，本库使用python作为接口语言，内部使用rust语言实现。本库计划支持多种机器人本体以及机器人夹爪的统一API操作，现阶段只支持了Franka机器人本体以及UEI项目中设计的夹爪。使用此库可以控制机器人本体末端的绝对位姿与相对步进位姿，同时可以获取机器人的状态信息。也可以控制夹爪的标定以及开合。
 
 ```python
 from time import sleep
@@ -110,30 +114,36 @@ import numpy as np
 # 输入ip，系统是否有实时内核
 robot = franka.Franka("192.168.1.100", False)
 
-# tranlation stiffness, rotation stiffness
+# 设置机器人的阻抗控制参数
 robot.start_control(300, 30)
 
+# 机器人末端相对位姿控制
 m = np.identity(4)
-# m[2, 3] = 0.1;
-sleep(1)
+m[2, 3] = 0.1;
+robot.move_relative_cartesian(m)
+
+# 获取机器人末端位姿
 state = robot.read_state()
 print(state)
-# sleep(5)
-
-robot.move_absolute_cartesian(
-    np.array(
-        [[ 0.92342271, -0.35936834,  0.13470301,  0.48263934],
-         [-0.36170872, -0.93226071, -0.00753466, -0.03020527],
-        [ 0.12828604, -0.04176558, -0.99085737,  0.22651136],
-        [ 0.,          0.,          0.,          1.        ]]
-    )
-);
-sleep(5)
-robot.stop()
 ```
-github: [https://github.com/geshengpsn/pymagiclaw](https://github.com/geshengpsn/pymagiclaw)
+机器人控制代码
 
-开发并上传了一个通用的机器人操作控制库，本库使用python作为接口语言，内部使用rust语言实现。本库计划支持多种机器人的统一API操作，现阶段只支持了Franka机器人。使用此库可以控制机器人末端的绝对位姿与相对步进位姿，同时可以获取机器人的状态信息。内部实现了机器人的阻抗控制。
+```rust
+from time import sleep
+from pymagiclaw import gripper 
+
+# 连接到gripper
+g = gripper.Gripper("192.168.5.24")
+
+# gripper标定
+g.calibration()
+
+# 模仿iphone连续发送指令
+for _ in range(0, 100):
+    sleep(0.033)
+    g.pos(0.5)
+```
+夹爪控制代码
 
 ### UEI - 机器人摇操
 
