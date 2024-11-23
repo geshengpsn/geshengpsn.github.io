@@ -99,7 +99,15 @@ github: [https://github.com/geshengpsn/aruco-rs](https://github.com/geshengpsn/a
 
 柔性手指使用一个USB相机模块作为视觉传感器，使用树莓派5作为上位机来进行ArUco码识别与机器模型推理。相机使用v4l2接口获取相机图像，使用OpenCV库进行ArUco码识别，使用[Burn](https://burn.dev/)在树莓派5的CPU上进行机器学习模型推理。最后将推理结果通过WebSocket向外界发送。
 
-## UEI - pymagiclaw 通用机器人操作控制库
+### UEI - 机器人夹爪
+
+![](uei/gripper.png)
+
+为了保证视觉数据在收集环节与部署环节没有偏移，这就需要数据收集夹爪本身与机器人夹爪拥有相同的外观。这就需要设计一款与数据收集夹爪外观相同的机器人夹爪。
+
+在本项目中，我们设计了一款无刷电机驱动的夹爪结构，并使用树莓派作为电机的上位机控制器，通过can接口进行底层电机控制。为了简化夹爪使用，我们开发了相应python驱动程序，使之能够进行位置伺服控制。
+
+### UEI - pymagiclaw 通用机器人操作控制库
 ![](pymagiclaw/pic.png)
 
 github: [https://github.com/geshengpsn/pymagiclaw](https://github.com/geshengpsn/pymagiclaw)
@@ -151,14 +159,14 @@ for _ in range(0, 100):
 
 使用硬件夹爪实现了，franka 机器人的摇操功能，可以通过手持硬件夹爪来控制机器人的末端位姿与夹爪开合。使用了pymagiclaw库来实现机器人的控制。
 
-## UEI - URDF 机器人模型文件解析库
+### UEI - URDF 机器人模型文件解析库
 
 ![](uei/urdf.png)
 
 使用Rust语言实现了URDF文件的解析，主要将URDF文件中的离散的link与joint转变为图数据结构，方便后续的机器人运动学、动力学计算。
 
 
-## UEI - 基于rerun的多模态数据可视化（在线与离线）
+### UEI - 基于rerun的多模态数据可视化（在线与离线）
 
 <video autoplay src="visual.mov" controls="controls" width="960" height="540">
 </video>
