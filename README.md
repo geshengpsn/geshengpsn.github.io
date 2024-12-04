@@ -56,7 +56,7 @@ fn main() {
     to_nurbs_svg("nurbs", &curve);
 }
 ```
-github: [https://github.com/geshengpsn?tab=repositories](https://github.com/geshengpsn?tab=repositories)
+github: [https://github.com/geshengpsn/niubi](https://github.com/geshengpsn/niubi)
 
 使用Rust实现了参数曲线曲面库，包括了贝塞尔曲线曲面、B样条曲线曲面、NURBS曲线曲面等功能。本项目为各个参数曲线曲面实现了基于trait与范型的曲线曲面接口，使得用户可以使用不同的维度与不同的数学backend来实现曲线曲面的计算。
 
